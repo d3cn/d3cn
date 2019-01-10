@@ -1,0 +1,68 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "d3cn"
+  contact:
+    email: "hueidou163@gmail.com"
+  license:
+    name: "MIT License"
+    url: "https://github.com/d3cn/d3cn/blob/master/LICENSE"
+host: "localhost:8000"
+basePath: "/api"
+schemes:
+- "http"
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+  /hello:
+    # binds a127 app logic to a route
+    x-swagger-router-controller: hello_world
+    get:
+      description: Returns 'Hello' to the caller
+      # used as the method name of the controller
+      operationId: hello
+      parameters:
+        - name: name
+          in: query
+          description: The name of the person to whom to say hello
+          required: false
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            # a pointer to a definition
+            $ref: "#/definitions/HelloWorldResponse"
+        # responses may fall through to errors
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+  /swagger:
+    x-swagger-pipe: swagger_raw
+securityDefinitions:
+  apikey:
+    type: "apiKey"
+    name: "apikey"
+    in: "header"
+definitions:
+  HelloWorldResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+  ErrorResponse:
+    required:
+      - message
+    properties:
+      message:
+        type: string
+externalDocs:
+  description: "接口说明"
+  url: "https://github.com/d3cn/d3cn/blob/master/server/README.md"
