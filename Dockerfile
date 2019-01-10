@@ -7,7 +7,7 @@ WORKDIR /d3cnapp
 COPY d3cnapp/package.json d3cnapp/yarn.lock ./
 RUN yarn install
 
-COPY . .
+COPY d3cnapp ./
 RUN yarn run build
 
 # 发布阶段
